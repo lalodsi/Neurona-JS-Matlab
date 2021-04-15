@@ -1,6 +1,6 @@
 const fs = require('fs'),
     NOMBRE_ARCHIVO = 'Datos.txt';
-    
+
     function error(err) {
         if (err)
         console.log('No se pudo leer el archivo');
@@ -8,7 +8,7 @@ const fs = require('fs'),
             console.log('Datos escritos correctamente');
         }
     }
-    
+
     let opciones = {
         encoding: "utf8",
         flag: "a+",
@@ -20,7 +20,9 @@ const fs = require('fs'),
 let Neurona = {
     pesos: [],
     bias: null,
-    alpha: .01,
+    alpha: .005,
+    VALOR_MINIMO_DE_ERROR: 0.0001,
+    informacion: '',
 
     init: function (numPesos) {
         for (let i = 0; i < numPesos; i++) {
@@ -42,7 +44,10 @@ let Neurona = {
         // return salida;
     },
     entrenar(dataInput, salidaDeseada){
+        let epocas = 1;
         do{
+            this.informacion +=  `${epocas}`;
+
             var errorEpoch = 0;
             dataInput.forEach((elemento, index) => {
                 let salida = this.salida(elemento);
@@ -50,21 +55,27 @@ let Neurona = {
                 errorEpoch += Math.abs(error);
                 this.ajustePesos(error, elemento);
             });
+            this.pesos.forEach( (peso) => this.informacion += ` ${peso}`)
             // console.log(errorEpoch / dataInput.length);
-            fs.writeFileSync(NOMBRE_ARCHIVO, `${errorEpoch / dataInput.length}\n`, opciones, error)
+            this.informacion +=  ` ${errorEpoch / dataInput.length}\n`;
+
+            epocas++;
         }
-        while( ( errorEpoch / dataInput.length ) > 0.0001);
+        while( ( errorEpoch / dataInput.length ) > this.VALOR_MINIMO_DE_ERROR );
+        fs.writeFileSync(NOMBRE_ARCHIVO, this.informacion, opciones, error)
+        this.informacion = '';
     },
     ajustePesos(error, currentInput){
         for (let index = 0; index < this.pesos.length; index++) {
             let ajuste = error * this.alpha * currentInput[index];
             this.pesos[index] += ajuste;
+            // this.informacion += ` ${this.pesos[index]}`;
         }
         let ajuste = error * this.alpha * 1;
         this.bias += ajuste;
+        // this.informacion += ` ${this.bias}`;
     }
 }
-
 
 
 //AND  pesos = [1,1] umbral = 2
