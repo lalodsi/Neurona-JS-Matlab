@@ -1,3 +1,5 @@
+console.log('\t\tPrograma para entrenamiento de neurona');
+console.log('Creando o abriendo archivo de texto..');
 const fs = require('fs'),
     NOMBRE_ARCHIVO = 'Datos.txt';
 
@@ -5,7 +7,7 @@ const fs = require('fs'),
         if (err)
         console.log('No se pudo leer el archivo');
         else{
-            console.log('Datos escritos correctamente');
+            // console.log('Archivo cargado correctamente, listo para escribir...');
         }
     }
 
@@ -15,7 +17,9 @@ const fs = require('fs'),
         mode: 0o666
     }
 
+    console.log('Limpiando información...');
     fs.writeFile(NOMBRE_ARCHIVO, "", error)
+
 
 let Neurona = {
     pesos: [],
@@ -88,13 +92,19 @@ let salidaDeseada = [-1, 1, 1, 1];
 // let conjuntoEntradas = [[-1], [1]];
 // let salidaDeseada = [1, -1];
 
+console.log('Creando neurona...')
 Neurona.init(2)
+console.log('Neurona Creada')
+
+console.log('Entrenando neurona...')
 Neurona.entrenar(conjuntoEntradas, salidaDeseada)
+console.log('Neurona Entrenada')
 // console.log(`${Neurona.salida([1, 1])}`);
 
-for (let index = 0; index < conjuntoEntradas.length; index++) {
-    // fs.writeFileSync(NOMBRE_ARCHIVO,'***************************\n',opciones, error)
-    // fs.writeFileSync(NOMBRE_ARCHIVO,`Entrada: ${conjuntoEntradas[index]}\n`,opciones, error)
-    // fs.writeFileSync(NOMBRE_ARCHIVO,`Salida: ${Neurona.salida(conjuntoEntradas[index])}\n`,opciones, error)
-    // fs.writeFileSync(NOMBRE_ARCHIVO,`Salida Esperada: ${salidaDeseada[index]}\n`,opciones, error)
-}
+
+// for (let index = 0; index < conjuntoEntradas.length; index++) {
+//     // fs.writeFileSync(NOMBRE_ARCHIVO,'***************************\n',opciones, error)
+//     // fs.writeFileSync(NOMBRE_ARCHIVO,`Entrada: ${conjuntoEntradas[index]}\n`,opciones, error)
+//     // fs.writeFileSync(NOMBRE_ARCHIVO,`Salida: ${Neurona.salida(conjuntoEntradas[index])}\n`,opciones, error)
+//     // fs.writeFileSync(NOMBRE_ARCHIVO,`Salida Esperada: ${salidaDeseada[index]}\n`,opciones, error)
+// }
