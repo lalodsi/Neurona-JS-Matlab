@@ -71,7 +71,7 @@ let Neurona = {
     },
     ajustePesos(error, currentInput){
         for (let index = 0; index < this.pesos.length; index++) {
-            let ajuste = error * this.alpha * currentInput[index];
+            let ajuste = error * this.alpha * currentInput[index] / (Math.abs(currentInput[index])^2) ;
             this.pesos[index] += ajuste;
             // this.informacion += ` ${this.pesos[index]}`;
         }
