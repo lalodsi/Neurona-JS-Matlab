@@ -6,9 +6,6 @@ const fs = require('fs'),
     function error(err) {
         if (err)
         console.log('No se pudo leer el archivo');
-        else{
-            // console.log('Archivo cargado correctamente, listo para escribir...');
-        }
     }
 
     let opciones = {
@@ -45,7 +42,6 @@ let Neurona = {
         entrada.forEach( ( elemento, index) => salida += elemento * this.pesos[index] );
         salida += this.bias;
         return salida >= 0 ? limSup : limInf;
-        // return salida;
     },
     entrenar(dataInput, salidaDeseada){
         let epocas = 1;
@@ -60,7 +56,6 @@ let Neurona = {
                 this.ajustePesos(error, elemento);
             });
             this.pesos.forEach( (peso) => this.informacion += ` ${peso}`)
-            // console.log(errorEpoch / dataInput.length);
             this.informacion +=  ` ${errorEpoch / dataInput.length}\n`;
 
             epocas++;
@@ -73,24 +68,16 @@ let Neurona = {
         for (let index = 0; index < this.pesos.length; index++) {
             let ajuste = error * this.alpha * currentInput[index] / (Math.abs(currentInput[index])^2) ;
             this.pesos[index] += ajuste;
-            // this.informacion += ` ${this.pesos[index]}`;
         }
         let ajuste = error * this.alpha * 1;
         this.bias += ajuste;
-        // this.informacion += ` ${this.bias}`;
     }
 }
 
 
-//AND  pesos = [1,1] umbral = 2
-// let conjuntoEntradas = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
-// let salidaDeseada = [-1, -1, -1, 1];
 //OR  pesos = [1,1] umbral = 2
 let conjuntoEntradas = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
 let salidaDeseada = [-1, 1, 1, 1];
-//NOT pesos = [-1] umbral = 0
-// let conjuntoEntradas = [[-1], [1]];
-// let salidaDeseada = [1, -1];
 
 console.log('Creando neurona...')
 Neurona.init(2)
@@ -99,12 +86,3 @@ console.log('Neurona Creada')
 console.log('Entrenando neurona...')
 Neurona.entrenar(conjuntoEntradas, salidaDeseada)
 console.log('Neurona Entrenada')
-// console.log(`${Neurona.salida([1, 1])}`);
-
-
-// for (let index = 0; index < conjuntoEntradas.length; index++) {
-//     // fs.writeFileSync(NOMBRE_ARCHIVO,'***************************\n',opciones, error)
-//     // fs.writeFileSync(NOMBRE_ARCHIVO,`Entrada: ${conjuntoEntradas[index]}\n`,opciones, error)
-//     // fs.writeFileSync(NOMBRE_ARCHIVO,`Salida: ${Neurona.salida(conjuntoEntradas[index])}\n`,opciones, error)
-//     // fs.writeFileSync(NOMBRE_ARCHIVO,`Salida Esperada: ${salidaDeseada[index]}\n`,opciones, error)
-// }
