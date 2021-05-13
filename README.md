@@ -1,4 +1,4 @@
-# Perceptron-JS-Matlab
+# Neurona-JS-Matlab
 Neurona programada en JavaScript (Node) y visualizada en Matlab
 
 ## ¿Cómo correr el programa?
